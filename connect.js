@@ -11,4 +11,8 @@ class Connect{
         })
         World.add(engine.world, this.connect);
     }
+    
+  noConnect(){
+    World.remove(engine.world, this.connect);
+  }      
 }
