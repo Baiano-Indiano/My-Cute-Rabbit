@@ -14,13 +14,14 @@ var floor;
 var rope;
 var fruit;
 
-var stick;
+var stick, stick1, stick2;
 
 var bunnySprite;
 var soprador;
 
 var backgroundImage, fruitImage, rabbitImage,buttonImage,MuteImg;
-
+var buttonImage2,buttonImage3;
+var rope2, rope3;
 var blink, eating, sad;
 
 var backgroundSound, cutSound, depre, guloso, fu;
@@ -53,7 +54,8 @@ function setup()
   backgroundSound.setVolume(0.3);
   engine = Engine.create();
   world = engine.world;
-  bunnySprite = createSprite(420,620,100,100);
+
+  bunnySprite = createSprite(170,620,100,100);
   bunnySprite.scale = 0.2;
   bunnySprite.addImage(rabbitImage);
   bunnySprite.addAnimation("blink", blink);
@@ -63,23 +65,38 @@ function setup()
   bunnySprite.changeAnimation("blink");
 
   buttonImage = createImg("./preload/cut_button.png");
-  buttonImage.position(220,30);
+  buttonImage.position(20,30);
   buttonImage.size(30,30);
   buttonImage.mouseClicked(cortar);
-  soprador = createImg("./preload/balloon.png");
+
+  buttonImage2 = createImg("./preload/cut_button.png");
+  buttonImage2.position(330,35);
+  buttonImage2.size(30,30);
+  buttonImage2.mouseClicked(cortar2);
+
+  buttonImage3 = createImg("./preload/cut_button.png");
+  buttonImage3.position(360,200);
+  buttonImage3.size(30,30);
+  buttonImage3.mouseClicked(cortar3);
+  /*soprador = createImg("./preload/balloon.png");
   soprador.position(10,250);
   soprador.size(150,100);
-  soprador.mouseClicked(ballon);
+  soprador.mouseClicked(ballon);*/
+
   MuteImg = createImg("./preload/mute.png");
   MuteImg.position(430,20);
   MuteImg.size(50,50);
   MuteImg.mouseClicked(Mute);
  
   floor = new Floor(200,690,600,20);
-  rope = new Rope(6,{x:245,y:30});
+  rope = new Rope(8,{x:40,y:30});
+  rope2 = new Rope(7,{x:370,y:40});
+  rope3 = new Rope(4,{x:400,y:225});
   fruit = Bodies.circle(300,300,15);
   World.add(world,fruit);
   stick = new Connect(rope,fruit);
+  stick1 = new Connect(rope2,fruit);
+  stick2 = new Connect(rope3,fruit);
 
   blink.frameDelay = 30;
   eating.frameDelay = 20;
@@ -102,6 +119,9 @@ function draw()
  
   floor.show();
   rope.show();
+  rope2.show();
+  rope3.show();
+
   if(collision(fruit,bunnySprite) === true){
     bunnySprite.changeAnimation("eating");
     guloso.play();
@@ -133,6 +153,20 @@ function cortar(){
   rope.break();
   stick.noConnect();
   stick = null;
+  cutSound.play();
+}
+
+function cortar2(){
+  rope2.break();
+  stick1.noConnect();
+  stick1 = null;
+  cutSound.play();
+}
+
+function cortar3(){
+  rope3.break();
+  stick2.noConnect();
+  stick2 = null;
   cutSound.play();
 }
 
